@@ -1,0 +1,41 @@
+// functions
+.key-frames(@name, @frames) {
+    @-webkit-keyframes  @name{
+        @frames();
+    }
+    @-moz-keyframes @name {
+        @frames();
+    }
+    @-ms-keyframes @name {
+        @frames();
+    }
+    @-o-keyframes @name {
+        @frames();
+    }
+    @keyframes @name {
+        @frames();
+    }
+}
+.animation(@animation-name, @animation-duration, @animation-timing-function, @animation-delay, @frames) {
+    .key-frames(@animation-name, @frames);
+    -webkit-animation: @animation-name @animation-duration @animation-timing-function @animation-delay;
+    -moz-animation: @animation-name @animation-duration @animation-timing-function @animation-delay;
+    -ms-animation: @animation-name @animation-duration @animation-timing-function @animation-delay;
+    -o-animation:  @animation-name @animation-duration @animation-timing-function @animation-delay;
+    animation: @animation-name @animation-duration @animation-timing-function @animation-delay;
+}
+
+// animations
+.twinkling() {
+    .animation(twinkling, 1s, infinite, linear, {  
+        0%{  
+            opacity: 0;  
+        }  
+        50%{  
+            opacity: 1;  
+        }  
+        100%{  
+            opacity: 0;  
+        }  
+    })
+}
