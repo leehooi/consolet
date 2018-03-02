@@ -1,34 +1,30 @@
 import { OutputStream, ConsoleColor } from '../Interfaces'
-import $ from '../JQueryLite'
+import $, { JQueryLite } from '../JQueryLite'
 export default class ConsoleOutputStream implements OutputStream {
-    constructor(public container: Element) {
+    constructor(public container: JQueryLite) {
     }
 
     writeKey(key: string):void {
         if (key == 'Backspace') {
-            if (this.container.childElementCount > 0) {
-                this.container.removeChild(this.container.lastChild);
-            }
+            this.container.removeLastChild();
         }
         else {
-            let outputDom = document.createElement('pre');
-            outputDom.textContent = key;
-            this.container.appendChild(outputDom);
-            this.container.scrollTo(0, this.container.scrollHeight);
+            this.container.append($('<pre>').text(key));
+            this.scrollToBottom();
         }
     }
 
     private linkReg = /(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
     write(text: string, foreColor?: ConsoleColor, bgColor?: ConsoleColor): void {
         if (text.length == 0) {
-            this.scrollToEnd();
+            this.scrollToBottom();
             return;
         }
 
         let match = text.match(this.linkReg);
         if (!match || match.index < 0) {
             this.outputPlain(text, foreColor, bgColor);
-            this.scrollToEnd();
+            this.scrollToBottom();
             return;
         }
 
@@ -55,7 +51,7 @@ export default class ConsoleOutputStream implements OutputStream {
         if(bgColor != null){
             outputDom.addClass(ConsoleColor[bgColor] +'Bg');
         }
-        this.container.appendChild(outputDom);
+        this.container.append(outputDom);
     }
 
     private outputLink(text: string, href: string, foreColor?: ConsoleColor, bgColor?: ConsoleColor) {
@@ -63,19 +59,19 @@ export default class ConsoleOutputStream implements OutputStream {
         outputDom.textContent = text;
         outputDom.href = href;
         this.setColor(outputDom, foreColor, bgColor);
-        this.container.appendChild(outputDom);
+        this.container.append(outputDom);
     }
 
     writeLine(text?: string, foreColor?: ConsoleColor, bgColor?: ConsoleColor) {
         if (text) {
             this.write(text, foreColor, bgColor);
         }
-        this.container.appendChild(document.createElement('br'));
-        this.scrollToEnd();
+        this.container.append(document.createElement('br'));
+        this.scrollToBottom();
     }
 
-    private scrollToEnd(){
-        this.container.parentElement.scrollTo(0, this.container.parentElement.scrollHeight);
+    private scrollToBottom(){
+        this.container.parent().scrollToBottom();
     }
 
     private setColor(element: Element, foreColor?: ConsoleColor, bgColor?: ConsoleColor) {

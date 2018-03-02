@@ -17,7 +17,7 @@ export default class ConsoleSystem implements System {
         // setup output
         let outputContainer = $('<div>');
         consoleContainer.append(outputContainer);
-        this.output = new ConsoleOutputStream(outputContainer.element);
+        this.output = new ConsoleOutputStream(outputContainer);
 
         // setup input
         let inputContainer = $('<div>');

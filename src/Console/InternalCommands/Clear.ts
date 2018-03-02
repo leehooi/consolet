@@ -7,7 +7,7 @@ export default class Clear implements Program {
     description: string = 'Clears the screen.';
     
     main(system: ConsoleSystem, args: string[]): Promise<any> {
-        system.output.container.innerHTML = '';
+        system.output.container.empty();
         return Promise.resolve();
     }
 }

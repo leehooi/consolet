@@ -1,4 +1,4 @@
-class JQueryLite {
+export class JQueryLite {
     constructor(public element?: Element) {
     }
 
@@ -15,6 +15,23 @@ class JQueryLite {
         else {
             this.element.appendChild(element.element);
         }
+        return this;
+    }
+    parent(): JQueryLite {
+        return  new JQueryLite(this.element.parentElement);
+    }
+    removeLastChild(): JQueryLite {
+        if (this.element.childElementCount > 0) {
+            this.element.removeChild(this.element.lastChild);
+        }
+        return this;
+    }
+    empty(): JQueryLite {
+        this.element.innerHTML = '';
+        return this;
+    }
+    scrollToBottom(): JQueryLite {
+        this.element.scrollTo(0, this.element.scrollHeight);
         return this;
     }
     text(val: string): JQueryLite {
