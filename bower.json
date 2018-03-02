@@ -1,0 +1,17 @@
+{
+  "name": "consolet",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "lihui"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/leehooi/consolet",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
