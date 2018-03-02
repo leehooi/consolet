@@ -24,7 +24,6 @@
   "homepage": "https://github.com/leehooi/consolet#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.17",
-    "copy-webpack-plugin": "^4.3.1",
     "cross-env": "^5.1.3",
     "css-loader": "^0.28.8",
     "html-webpack-plugin": "^2.30.1",

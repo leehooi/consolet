@@ -2,10 +2,9 @@ var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  entry: './src/main.ts',
+  entry: './src/Consolet/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '',
@@ -47,8 +46,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin([ __dirname + '/dist/*']),
     new HtmlWebpackPlugin({
-      filename: './index.html', //http访问路径
-      template: './src/index.html', //实际文件路径
+      filename: './example.html',
+      template: './src/example.html',
       inject: true
     })
   ]
