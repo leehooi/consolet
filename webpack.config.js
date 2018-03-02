@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '',
-    filename: 'build.js'
+    filename: 'consolet.min.js'
   },
   resolve: {
     extensions: ['.js', '.ts', '.json', '.less'],

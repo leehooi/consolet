@@ -1,4 +1,4 @@
-import { InputStream, ReadLineOption } from '../../Interfaces'
+import { InputStream, ReadLineOption } from '../Interfaces'
 import StateMachine from './ConsoleInputState'
 import ConsoleInputBuffer from './ConsoleInputBuffer'
 import ConsoleInputElementAdapter from './ConsoleInputElementAdapter'

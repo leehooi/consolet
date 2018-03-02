@@ -1,11 +1,11 @@
-import { Program } from '../../Interfaces'
-import ConsoleSystem from '../ConsoleSystem'
+import { Program } from '../Interfaces'
+import Consolet from '../Consolet'
 
 export default class Help implements Program {
     name: string = 'help';
     description: string = 'Provides Help information for all commands.';
 
-    main(system: ConsoleSystem, args: string[]): Promise<any> {
+    main(system: Consolet, args: string[]): Promise<any> {
         let command = args[0];
         if (args.length > 0) {
             system.findCommand(command).then(

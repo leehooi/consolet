@@ -1,5 +1,5 @@
-import { OutputStream, ConsoleColor } from '../Interfaces'
-import $, { JQueryLite } from '../JQueryLite'
+import { OutputStream, ConsoleColor } from './Interfaces'
+import $, { JQueryLite } from './JQueryLite'
 export default class ConsoleOutputStream implements OutputStream {
     constructor(public container: JQueryLite) {
     }

@@ -1,4 +1,4 @@
-import { ConsoleColor } from '../../Interfaces'
+import { ConsoleColor } from '../Interfaces'
 export default class ConsoleInputElementAdapter {
     constructor(public element: HTMLInputElement,
         readKey: { (value: string): void },

@@ -1,7 +1,5 @@
-import ConsoleSystem from './Console/ConsoleSystem'
-import programs from './Programs'
-import './Common/DateTime'
+import Consolet from './Consolet/Consolet'
 import './style'
 
-new ConsoleSystem('#app')
-    .boot(programs);
+new Consolet('#app')
+    .boot([]);

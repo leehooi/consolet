@@ -1,9 +1,9 @@
-import { InputStream, OutputStream, Program, System, ConsoleColor } from '../Interfaces'
+import { InputStream, OutputStream, Program, System, ConsoleColor } from './Interfaces'
 import ConsoleOutputStream from './ConsoleOutputStream'
 import ConsoleInputStream from './ConsoleInput/ConsoleInputStream'
 import internalCommands from './InternalCommands'
-import $ from '../JQueryLite'
-export default class ConsoleSystem implements System {
+import $ from './JQueryLite'
+export default class Consolet implements System {
     programs: { [key: string]: Program } = {};
     input: ConsoleInputStream;
     output: ConsoleOutputStream;
