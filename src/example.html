@@ -8,6 +8,16 @@
     <div id="app"></div>
   </body>
   <script type="text/javascript">
-    new Consolet('#app').boot([])
+    new Consolet('#app').boot([
+      {
+        name: 'date',
+        description: 'Displays the date.',
+        main: function(system, args) {
+          console.log(system);
+          console.log(args);
+          system.output.writeLine((new Date()).toString(), 1);
+        }
+      }
+    ])
   </script>
 </html>
