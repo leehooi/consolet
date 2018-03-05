@@ -10,7 +10,7 @@ export default class Consolet implements System {
     historyCommands: string[] = [];
     constructor(options: ConsoletOptions) {
         let consoleContainer = $(options.dom);
-        consoleContainer.addClass('wconsole');
+        consoleContainer.addClass('consolet');
         consoleContainer.addClass(ConsoleColor[ConsoleColor.White]);
         consoleContainer.addClass(ConsoleColor[ConsoleColor.Black]+'Bg');
         // setup output

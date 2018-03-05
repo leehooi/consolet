@@ -1,10 +1,6 @@
 @import './animation.less';
-
-body {
-    margin: 0;
-    overflow: hidden;
-}
-.wconsole {
+@import './ubuntu.less';
+.consolet {
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
@@ -30,8 +26,6 @@ body {
         caret-color: rgba(0, 0, 0, 0);
     }
     input:focus {
-        .twinkling;
+        .blinking;
     }
 }
-
-@import './ubuntu.less';
