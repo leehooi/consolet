@@ -38,11 +38,6 @@ export default class ConsoleOutputStream implements OutputStream {
         if (!text || text.length == 0) {
             return;
         }
-        if(foreColor != null){
-
-            console.log(foreColor);
-            console.log(ConsoleColor[foreColor]);
-        }
         let outputDom = $('<pre>');
         outputDom.text(text);
         if(foreColor != null){

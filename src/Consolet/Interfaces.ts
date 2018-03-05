@@ -1,3 +1,10 @@
+export interface ConsoletOptions{
+    dom: Element,
+    commands: Command[],
+    prompt: string,
+    greeting: string | Command
+}
+
 export interface InputStream {
     read(): Promise<string>;
     readLine(option?: ReadLineOption): Promise<string>;
@@ -13,7 +20,7 @@ export interface OutputStream {
     writeLine(text?: string, foreColor?: ConsoleColor, bgColor?: ConsoleColor): void;
 }
 
-export interface Program {
+export interface Command {
     name:string;
     description: string;
     main(system: System, args: string[]): Promise<any>;
@@ -22,7 +29,6 @@ export interface Program {
 export interface System {
     input: InputStream;
     output: OutputStream;
-    runCommand(command: string): Promise<any>;
 }
 
 export enum ConsoleColor {

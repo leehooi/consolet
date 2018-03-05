@@ -1,23 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <div id="app"></div>
-  </body>
-  <script type="text/javascript">
-    new Consolet('#app').boot([
-      {
-        name: 'date',
-        description: 'Displays the date.',
-        main: function(system, args) {
-          console.log(system);
-          console.log(args);
-          system.output.writeLine((new Date()).toString(), 1);
-        }
-      }
-    ])
-  </script>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <div id="app"></div>
+</body>
+<script type="text/javascript">
+  var helpCommand = {
+    name: 'help',
+    description: 'Provides Help information for all commands.',
+    main: function (system, args) {
+      var lines = [];
+      commands.forEach(function (c) {
+        lines.push(c.name + '\t' + c.description);
+      })
+      system.output.writeLine(lines.sort().join('\n') + '\n\nFor more information on a specific command, type HELP command-name.\n');
+    }
+  };
+  var clsCommand = {
+    name: 'cls',
+    description: 'Clears the screen.',
+    main: function (system, args) {
+      system.output.container.empty();
+    }
+  };
+  var historyCommand = {
+    name: 'history',
+    description: 'Displays the command history.',
+    main: function (system, args) {
+      var display = system.historyCommands
+        .filter(h => h.toLowerCase() != this.name.toLowerCase())
+        .join('\n');
+      system.output.writeLine(display);
+    }
+  };
+  var dateCommand = {
+    name: 'date',
+    description: 'Displays the date.',
+    main: function (system, args) {
+      system.output.writeLine((new Date()).toString(), 1);
+    }
+  };
+  var commands = [helpCommand, clsCommand, historyCommand, dateCommand];
+  new Consolet({
+    dom: document.querySelector('#app'),
+    commands: commands,
+    greeting: 'Type \'help\' to see all commands.'
+  })
+</script>
+
 </html>

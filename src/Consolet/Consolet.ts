@@ -1,16 +1,15 @@
-import { InputStream, OutputStream, Program, System, ConsoleColor } from './Interfaces'
+import { ConsoletOptions, InputStream, OutputStream, Command, System, ConsoleColor } from './Interfaces'
 import ConsoleOutputStream from './ConsoleOutputStream'
 import ConsoleInputStream from './ConsoleInput/ConsoleInputStream'
-import internalCommands from './InternalCommands'
 import $ from './JQueryLite'
 export default class Consolet implements System {
-    programs: { [key: string]: Program } = {};
+    private commands: { [key: string]: Command } = {};
+    private prompt: string;
     input: ConsoleInputStream;
     output: ConsoleOutputStream;
-    prompt: string = '$ ';
     historyCommands: string[] = [];
-    constructor(domSelector: string) {
-        let consoleContainer = $(domSelector);
+    constructor(options: ConsoletOptions) {
+        let consoleContainer = $(options.dom);
         consoleContainer.addClass('wconsole');
         consoleContainer.addClass(ConsoleColor[ConsoleColor.White]);
         consoleContainer.addClass(ConsoleColor[ConsoleColor.Black]+'Bg');
@@ -23,20 +22,29 @@ export default class Consolet implements System {
         let inputContainer = $('<div>');
         consoleContainer.append(inputContainer);
         this.input = new ConsoleInputStream(inputContainer.element);
-    }
-    boot(programs: Program[]) {
 
-        programs.forEach(p => this.install(p));
-        
-        internalCommands.forEach(p => this.install(p));
+        // install programs
+        if(options.commands){
+            options.commands.forEach(p => this.install(p));
+        }
 
-        this.output.writeLine('Type \'help\' to see all commands.');
-        this.output.writeLine('Or visit blog http://blog.lihui.io.');
+        // set prompt
+        this.prompt = options.prompt || '$ ';
+
+        // show greeting
+        if(options.greeting){
+            if(typeof(options.greeting) === 'string'){
+                this.output.writeLine(options.greeting);
+            }
+            else{
+                options.greeting.main(this, []);
+            }
+        }
 
         this.waitCommand();
     }
-    private install(program: Program) {
-        this.programs[program.name.toUpperCase()] = program;
+    private install(command: Command) {
+        this.commands[command.name.toUpperCase()] = command;
     }
     private waitCommand(): Promise<any> {
         this.output.write(this.prompt, ConsoleColor.Gray);
@@ -59,7 +67,7 @@ export default class Consolet implements System {
             return this.waitCommand();
         });
     }
-    runCommand(command: string): Promise<any> {
+    private runCommand(command: string): Promise<any> {
         var segments = command.split(' ');
         var name = segments[0];
         return this.findCommand(name).then(
@@ -68,9 +76,9 @@ export default class Consolet implements System {
             }
         );
     }
-    findCommand(name: string): Promise<Program>{
+    private findCommand(name: string): Promise<Command>{
         return new Promise((resolve, reject) =>{
-            var program = this.programs[name.toUpperCase()];
+            var program = this.commands[name.toUpperCase()];
             if (program) {
                 resolve(program);
             }
